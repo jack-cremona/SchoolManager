@@ -1,3 +1,5 @@
+using Scalar.AspNetCore;
+using SchoolManager.Data;
 
 namespace SchoolManager
 {
@@ -13,6 +15,8 @@ namespace SchoolManager
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddSqlServer<SchoolDbContext>(builder.Configuration.GetConnectionString("Default"));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,6 +30,8 @@ namespace SchoolManager
             app.UseAuthorization();
 
             app.MapControllers();
+
+            app.MapScalarApiReference();
 
             app.Run();
         }
