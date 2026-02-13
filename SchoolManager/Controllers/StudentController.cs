@@ -106,7 +106,7 @@ namespace SchoolManager.Controllers
         {
             var student = _ctx.Students.SingleOrDefault(s => s.StudentId == id);
             if (student == null)
-                return BadRequest();
+                return NotFound();
             _ctx.Students.Remove(student);
             if (_ctx.SaveChanges() == 1) //chiusura della transazione
                 return NoContent();

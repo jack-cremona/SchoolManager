@@ -4,6 +4,7 @@ namespace SchoolManager.DTO
 {
     public class Mapper
     {
+        #region MapEntityToDto
         public StudentDto MapEntityToDto(Student entity)
         {
             StudentDto dto = new StudentDto()
@@ -30,6 +31,10 @@ namespace SchoolManager.DTO
             return dto;
         }
 
+        #endregion
+
+        #region MapDtoToEntity
+
         public Student MapDtoToEntity(StudentDto dto)
         {
             return new Student()
@@ -39,5 +44,9 @@ namespace SchoolManager.DTO
                 Surname = dto.Surname
             };
         }
+
+        
+
+        #endregion
     }
 }
