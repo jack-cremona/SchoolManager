@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include=".DTO\CourseDto.cs" />
+    <Compile Include=".DTO\Mapper.cs" />
     <Compile Include=".DTO\StudentDto.cs" />
   </ItemGroup>
 
