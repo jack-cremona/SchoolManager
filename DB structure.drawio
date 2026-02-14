@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36" version="29.3.8">
+  <diagram name="Page-1" id="M3v7seTjhYfI_753UWGk">
+    <mxGraphModel dx="1042" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="0" fold="1" page="1" pageScale="1" pageWidth="3300" pageHeight="4681" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-22" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;shape=wire;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=default;" value="Student" vertex="1">
+          <mxGeometry height="60" width="120" x="350" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-21" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-2" parent="1" style="whiteSpace=wrap;html=1;" value="Enrollment" vertex="1">
+          <mxGeometry height="60" width="120" x="90" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-20" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-4" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-4" parent="1" style="whiteSpace=wrap;html=1;" value="Course" vertex="1">
+          <mxGeometry height="60" width="120" x="90" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-5" parent="1" style="whiteSpace=wrap;html=1;" value="Module" vertex="1">
+          <mxGeometry height="60" width="120" x="90" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-18" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-6" parent="1" style="whiteSpace=wrap;html=1;" value="Assignment" vertex="1">
+          <mxGeometry height="60" width="120" x="370" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-19" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;endArrow=none;endFill=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="210" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-8" parent="1" style="whiteSpace=wrap;html=1;" value="Subject" vertex="1">
+          <mxGeometry height="60" width="120" x="380" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-15" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-10" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-16" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-10" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-10" parent="1" style="whiteSpace=wrap;html=1;" value="Teacher" vertex="1">
+          <mxGeometry height="60" width="120" x="670" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-17" edge="1" parent="1" source="Nui7WDP1Q5oCR427Am_b-11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" target="Nui7WDP1Q5oCR427Am_b-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Nui7WDP1Q5oCR427Am_b-11" parent="1" style="whiteSpace=wrap;html=1;" value="Competence" vertex="1">
+          <mxGeometry height="60" width="120" x="670" y="420" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
