@@ -31,6 +31,18 @@ namespace SchoolManager.DTO
             return dto;
         }
 
+        public ModuleDto MapEntityToDto(Module entity)
+        {
+            ModuleDto dto = new ModuleDto()
+            {
+                Id = entity.ModuleId,
+                Title = entity.Title,
+                CourseId = entity.CourseId,
+                SubjectId = entity.SubjectId
+            };
+            return dto;
+        }
+
         #endregion
 
         #region MapDtoToEntity
@@ -45,7 +57,14 @@ namespace SchoolManager.DTO
             };
         }
 
-        
+        public Course MapDtoToEntity(CourseDto dto)
+        {
+            return new Course()
+            {
+                CourseId = dto.Id,
+                Title = dto.Title
+            };
+        }
 
         #endregion
     }

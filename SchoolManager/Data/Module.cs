@@ -4,7 +4,7 @@ namespace SchoolManager.Data
 {
     public class Module
     {
-        public int Id { get; set; }
+        public int ModuleId { get; set; }
         public int CourseId { get; set; }   //Fk verso Course
         public int SubjectId { get; set; }  //Fk verso Subject
         public required string Title { get; set; }

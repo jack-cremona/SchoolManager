@@ -9,6 +9,7 @@
   <ItemGroup>
     <Compile Include=".DTO\CourseDto.cs" />
     <Compile Include=".DTO\Mapper.cs" />
+    <Compile Include=".DTO\ModuleDto.cs" />
     <Compile Include=".DTO\StudentDto.cs" />
   </ItemGroup>
 
