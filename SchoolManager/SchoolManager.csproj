@@ -7,10 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include=".DTO\CourseDetailsDto.cs" />
     <Compile Include=".DTO\CourseDto.cs" />
     <Compile Include=".DTO\Mapper.cs" />
+    <Compile Include=".DTO\ModuleDetailsDto.cs" />
     <Compile Include=".DTO\ModuleDto.cs" />
+    <Compile Include=".DTO\StudentDetailsDto.cs" />
     <Compile Include=".DTO\StudentDto.cs" />
+    <Compile Include=".DTO\SubjectDetailsDto.cs" />
+    <Compile Include=".DTO\SubjectDto.cs" />
+    <Compile Include=".DTO\TeacherDetailsDto.cs" />
+    <Compile Include=".DTO\TeacherDto.cs" />
   </ItemGroup>
 
   <ItemGroup>

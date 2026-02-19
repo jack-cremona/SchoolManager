@@ -3,6 +3,7 @@
 namespace SchoolManager.DTO
 {
     public class StudentDto
+
     {
         [Range(1,int.MaxValue)]
         public int Id { get; set; }
@@ -12,7 +13,5 @@ namespace SchoolManager.DTO
 
         [MinLength(2)]
         public required string Surname { get; set; }
-
-        public List<CourseDto>? Courses { get; set; }
     }
 }

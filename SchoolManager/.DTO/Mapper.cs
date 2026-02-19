@@ -4,68 +4,77 @@ namespace SchoolManager.DTO
 {
     public class Mapper
     {
-        #region MapEntityToDto
-        public StudentDto MapEntityToDto(Student entity)
+        public StudentDto MapToDto(Student student) => new StudentDto()
         {
-            StudentDto dto = new StudentDto()
-            {
-                Id = entity.StudentId,
-                Name = entity.Name,
-                Surname = entity.Surname,
-                Courses = entity.Enrollments?
-                    .Where(e => e.Course != null)
-                    .Select(x => x.Course)
-                    .ToList()
-                    .ConvertAll(MapEntityToDto),
-            };
-            return dto;
-        }
-
-        public CourseDto MapEntityToDto(Course entity)
+            Id = student.StudentId,
+            Name = student.Name,
+            Surname = student.Surname
+        };
+        public CourseDto MapToDto(Course course) => new CourseDto()
         {
-            CourseDto dto = new CourseDto()
-            {
-                Id = entity.CourseId,
-                Title = entity.Title
-            };
-            return dto;
-        }
-
-        public ModuleDto MapEntityToDto(Module entity)
+            Id = course.CourseId,
+            Title = course.Title
+        };
+        public ModuleDto MapToDto(Module module) => new ModuleDto()
         {
-            ModuleDto dto = new ModuleDto()
-            {
-                Id = entity.ModuleId,
-                Title = entity.Title,
-                CourseId = entity.CourseId,
-                SubjectId = entity.SubjectId
-            };
-            return dto;
-        }
-
-        #endregion
-
-        #region MapDtoToEntity
-
-        public Student MapDtoToEntity(StudentDto dto)
+            Id = module.ModuleId,
+            Title = module.Title,
+            CourseId = module.CourseId,
+            SubjectId = module.SubjectId
+        };
+        public SubjectDto MapToDto(Subject subject) => new SubjectDto()
         {
-            return new Student()
-            {
-                StudentId = dto.Id,
-                Name = dto.Name,
-                Surname = dto.Surname
-            };
-        }
-
-        public Course MapDtoToEntity(CourseDto dto)
+            Id = subject.SubjectId,
+            Name = subject.Name
+        };
+        public TeacherDto MapToDto(Teacher teacher) => new TeacherDto()
         {
-            return new Course()
-            {
-                CourseId = dto.Id,
-                Title = dto.Title
-            };
-        }
+            Id = teacher.TeacherId,
+            Name = teacher.Name,
+            Surname = teacher.Surname
+        };
+        public StudentDetailsDto MapToDetailsDto(Student student) => new()
+        {
+            Id = student.StudentId,
+            Name = student.Name,
+            Surname = student.Surname,
+            Courses = student.Enrollments?.Select(e => MapToDto(e.Course!)).ToList() ?? new()
+        };
 
-        #endregion
+        public CourseDetailsDto MapToDetailsDto(Course course) => new()
+        {
+            Id = course.CourseId,
+            Title = course.Title,
+            Students = course.Enrollments?.Select(e => MapToDto(e.Student!)).ToList() ?? new(),
+            Modules = course.Modules?.Select(MapToDto).ToList() ?? new()
+        };
+
+        public ModuleDetailsDto MapToDetailsDto(Module module) => new()
+        {
+            Id = module.ModuleId,
+            Title = module.Title,
+            CourseId = module.CourseId,
+            SubjectId = module.SubjectId,
+            Course = module.Course != null ? MapToDto(module.Course) : null,
+            Subject = module.Subject != null ? MapToDto(module.Subject) : null,
+            Teachers = module.Teachers?.Select(MapToDto).ToList() ?? new()
+        };
+
+        public SubjectDetailsDto MapToDetailsDto(Subject subject) => new()
+        {
+            Id = subject.SubjectId,
+            Name = subject.Name,
+            Modules = subject.Modules?.Select(MapToDto).ToList() ?? new(),
+            Teachers = subject.Teachers?.Select(MapToDto).ToList() ?? new()
+        };
+
+        public TeacherDetailsDto MapToDetailsDto(Teacher teacher) => new()
+        {
+            Id = teacher.TeacherId,
+            Name = teacher.Name,
+            Surname = teacher.Surname,
+            Modules = teacher.Modules?.Select(MapToDto).ToList() ?? new(),
+            Subjects = teacher.Subjects?.Select(MapToDto).ToList() ?? new()
+        };
     }
 }

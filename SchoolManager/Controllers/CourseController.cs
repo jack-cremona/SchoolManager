@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolManager.Data;
 using SchoolManager.DTO;
@@ -11,96 +10,82 @@ namespace SchoolManager.Controllers
     public class CourseController : ControllerBase
     {
         private readonly SchoolDbContext _ctx;
-        private readonly ILogger<CourseController> _logger;
         private readonly Mapper _mapper;
 
-        public CourseController(SchoolDbContext ctx, ILogger<CourseController> logger, Mapper mapper)
+        public CourseController(SchoolDbContext ctx, Mapper mapper)
         {
             _ctx = ctx;
-            _logger = logger;
             _mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            try
-            {
-                var result = _ctx.Courses;
-                var courses = result.Select(c => new CourseDto()
-                {
-                    Id = c.CourseId,
-                    Title = c.Title
-                });
-                return Ok(courses);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message, ex);
-                return StatusCode(500, ex.Message);
-            }
+            var courses = _ctx.Courses.ToList();
+            return Ok(courses.Select(_mapper.MapToDto));
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{id}")]
         public IActionResult Get([FromRoute] int id)
         {
-            var courses = _ctx.Courses.SingleOrDefault(c => c.CourseId == id);
-            if (courses == null)
-                return NotFound();
-            return Ok(_mapper.MapEntityToDto(courses));
+            var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
+            if (course == null) return NotFound();
+            return Ok(_mapper.MapToDto(course));
         }
 
-        [HttpGet]
-        [Route("Details")]
+        [HttpGet("Details")]
         public IActionResult GetAllWithDetails()
         {
-            List<Course> result = _ctx.Courses.Include(c => c.Enrollments).ThenInclude(e => e.Student).ToList();
-            List<CourseDto> cources = result.ConvertAll(_mapper.MapEntityToDto);
-            return Ok(cources);
+            var courses = _ctx.Courses
+                .Include(c => c.Enrollments!).ThenInclude(e => e.Student)
+                .Include(c => c.Modules)
+                .ToList();
+
+            return Ok(courses.Select(_mapper.MapToDetailsDto));
+        }
+
+        [HttpGet("{id}/Details")]
+        public IActionResult GetWithDetails([FromRoute] int id)
+        {
+            var course = _ctx.Courses
+                .Include(c => c.Enrollments!).ThenInclude(e => e.Student)
+                .Include(c => c.Modules)
+                .FirstOrDefault(c => c.CourseId == id);
+
+            if (course == null) return NotFound();
+            return Ok(_mapper.MapToDetailsDto(course));
         }
 
         [HttpPost]
         public IActionResult Create([FromBody] CourseDto dto)
         {
-            Course course = new Course()
-            {
-                CourseId = 0,
-                Title = dto.Title
-            };
+            var course = new Course { Title = dto.Title };
             _ctx.Courses.Add(course);
-            if (_ctx.SaveChanges() == 1)
-                return NoContent();
-            else
-                return UnprocessableEntity();
+            _ctx.SaveChanges();
+
+            return CreatedAtAction(nameof(Get), new { id = course.CourseId }, _mapper.MapToDto(course));
         }
 
-        [HttpPut]
-        [Route("{id}")]
+        [HttpPut("{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] CourseDto dto)
         {
-            var course = _ctx.Courses.SingleOrDefault(c => c.CourseId == id);
-            if (course == null)
-                return NotFound();
+            var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
+            if (course == null) return NotFound();
+
             course.Title = dto.Title;
-            if (_ctx.SaveChanges() == 1)
-                return NoContent();
-            else
-                return UnprocessableEntity();
+            _ctx.SaveChanges();
+            return NoContent();
         }
 
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
-            var course = _ctx.Courses.SingleOrDefault(c => c.CourseId == id);
-            if (course == null)
-                return NotFound();
+            var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
+            if (course == null) return NotFound();
+
             _ctx.Courses.Remove(course);
-            if (_ctx.SaveChanges() == 1)
-                return NoContent();
-            else
-                return UnprocessableEntity();
+            _ctx.SaveChanges();
+            return NoContent();
         }
     }
 }

@@ -9,7 +9,5 @@ namespace SchoolManager.DTO
 
         [MinLength(2)]
         public required string Title { get; set; }
-
-        public List<StudentDto>? Students { get; set; }
     }
 }
