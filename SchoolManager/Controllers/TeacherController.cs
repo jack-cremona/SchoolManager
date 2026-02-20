@@ -61,8 +61,14 @@ namespace SchoolManager.Controllers
         {
             var teacher = new Teacher { Name = dto.Name, Surname = dto.Surname };
             _ctx.Teachers.Add(teacher);
-            _ctx.SaveChanges();
-
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return CreatedAtAction(nameof(Get), new { id = teacher.TeacherId }, _mapper.MapToDto(teacher));
         }
 
@@ -74,7 +80,14 @@ namespace SchoolManager.Controllers
 
             teacher.Name = dto.Name;
             teacher.Surname = dto.Surname;
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
 
@@ -85,7 +98,14 @@ namespace SchoolManager.Controllers
             if (teacher == null) return NotFound();
 
             _ctx.Teachers.Remove(teacher);
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
     }

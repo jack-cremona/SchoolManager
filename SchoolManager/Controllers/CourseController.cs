@@ -44,6 +44,7 @@ namespace SchoolManager.Controllers
             return Ok(courses.Select(_mapper.MapToDetailsDto));
         }
 
+        //da eccezione
         [HttpGet("{id}/Details")]
         public IActionResult GetWithDetails([FromRoute] int id)
         {
@@ -73,7 +74,14 @@ namespace SchoolManager.Controllers
             if (course == null) return NotFound();
 
             course.Title = dto.Title;
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
 
@@ -84,7 +92,14 @@ namespace SchoolManager.Controllers
             if (course == null) return NotFound();
 
             _ctx.Courses.Remove(course);
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
     }

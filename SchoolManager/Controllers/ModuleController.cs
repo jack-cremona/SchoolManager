@@ -69,8 +69,14 @@ namespace SchoolManager.Controllers
             };
 
             _ctx.Modules.Add(module);
-            _ctx.SaveChanges();
-
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return CreatedAtAction(nameof(Get), new { id = module.ModuleId }, _mapper.MapToDto(module));
         }
 
@@ -83,7 +89,14 @@ namespace SchoolManager.Controllers
             module.Title = dto.Title;
             module.CourseId = dto.CourseId;
             module.SubjectId = dto.SubjectId;
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
 
@@ -94,7 +107,14 @@ namespace SchoolManager.Controllers
             if (module == null) return NotFound();
 
             _ctx.Modules.Remove(module);
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
     }

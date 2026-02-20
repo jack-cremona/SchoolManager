@@ -15,6 +15,10 @@ namespace SchoolManager.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Module>()
+                .Property(m => m.ModuleId)
+                .HasColumnName("Id");
+
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Modules)
                 .WithOne(m => m.Course)

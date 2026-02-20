@@ -61,8 +61,14 @@ namespace SchoolManager.Controllers
         {
             var subject = new Subject { Name = dto.Name };
             _ctx.Subjects.Add(subject);
-            _ctx.SaveChanges();
-
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return CreatedAtAction(nameof(Get), new { id = subject.SubjectId }, _mapper.MapToDto(subject));
         }
 
@@ -73,7 +79,14 @@ namespace SchoolManager.Controllers
             if (subject == null) return NotFound();
 
             subject.Name = dto.Name;
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
 
@@ -84,7 +97,14 @@ namespace SchoolManager.Controllers
             if (subject == null) return NotFound();
 
             _ctx.Subjects.Remove(subject);
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
     }

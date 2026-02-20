@@ -65,10 +65,19 @@ namespace SchoolManager.Controllers
         {
             var student = new Student { Name = dto.Name, Surname = dto.Surname };
             _ctx.Students.Add(student);
-            _ctx.SaveChanges();
-
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return CreatedAtAction(nameof(Get), new { id = student.StudentId }, _mapper.MapToDto(student));
         }
+
+        
+
 
         [HttpPut("{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] StudentDto dto)
@@ -78,7 +87,14 @@ namespace SchoolManager.Controllers
 
             student.Name = dto.Name;
             student.Surname = dto.Surname;
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
 
@@ -89,7 +105,14 @@ namespace SchoolManager.Controllers
             if (student == null) return NotFound();
 
             _ctx.Students.Remove(student);
-            _ctx.SaveChanges();
+            try
+            {
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
             return NoContent();
         }
     }
