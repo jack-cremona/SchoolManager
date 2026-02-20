@@ -49,9 +49,11 @@ namespace SchoolManager.Data
             modelBuilder.Entity<Teacher>()
                 .HasMany(t => t.Subjects)
                 .WithMany(m => m.Teachers)
-                .UsingEntity(e => e.ToTable("Competences"));
+                .UsingEntity<Competence>();
+
         }
 
+        public DbSet<Competence> Competences { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
         public DbSet<Module> Modules { get; set; }
