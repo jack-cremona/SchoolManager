@@ -5,7 +5,8 @@ using SchoolManager.DTO;
 
 namespace SchoolManager.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TeacherController : ControllerBase
     {
@@ -18,14 +19,14 @@ namespace SchoolManager.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllTeachers")]
         public IActionResult GetAll()
         {
             var teachers = _ctx.Teachers.ToList();
             return Ok(teachers.Select(_mapper.MapToDto));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetTeacher/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var teacher = _ctx.Teachers.FirstOrDefault(t => t.TeacherId == id);
@@ -33,7 +34,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDto(teacher));
         }
 
-        [HttpGet("Details")]
+        [HttpGet("GetAllTeachersWithDetails")]
         public IActionResult GetAllWithDetails()
         {
             var teachers = _ctx.Teachers
@@ -44,7 +45,7 @@ namespace SchoolManager.Controllers
             return Ok(teachers.Select(_mapper.MapToDetailsDto));
         }
 
-        [HttpGet("{id}/Details")]
+        [HttpGet("GetTeacher/{id}/Details")]
         public IActionResult GetWithDetails([FromRoute] int id)
         {
             var teacher = _ctx.Teachers
@@ -56,7 +57,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDetailsDto(teacher));
         }
 
-        [HttpPost]
+        [HttpPost("CreateTeacher")]
         public IActionResult Create([FromBody] TeacherDto dto)
         {
             var teacher = new Teacher { Name = dto.Name, Surname = dto.Surname };
@@ -72,7 +73,7 @@ namespace SchoolManager.Controllers
             return CreatedAtAction(nameof(Get), new { id = teacher.TeacherId }, _mapper.MapToDto(teacher));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateTeacher/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] TeacherDto dto)
         {
             var teacher = _ctx.Teachers.FirstOrDefault(t => t.TeacherId == id);
@@ -91,7 +92,7 @@ namespace SchoolManager.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteTeacher/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
             var teacher = _ctx.Teachers.FirstOrDefault(t => t.TeacherId == id);

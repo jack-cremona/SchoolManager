@@ -5,7 +5,8 @@ using SchoolManager.DTO;
 
 namespace SchoolManager.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class EnrollmentController : ControllerBase
     {
@@ -16,7 +17,7 @@ namespace SchoolManager.Controllers
             _ctx = ctx;
         }
 
-        [HttpPost("Enroll/{studentId}-{courseId}")]
+        [HttpPost("Enroll/{studentId}/{courseId}")]
         public IActionResult EnrollStudent([FromRoute] int studentId, [FromRoute] int courseId)
         {
             var studentExists = _ctx.Students.Any(s => s.StudentId == studentId);

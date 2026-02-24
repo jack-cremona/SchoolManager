@@ -5,7 +5,8 @@ using SchoolManager.DTO;
 
 namespace SchoolManager.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ModuleController : ControllerBase
     {
@@ -18,14 +19,14 @@ namespace SchoolManager.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllModules")]
         public IActionResult GetAll()
         {
             var modules = _ctx.Modules.ToList();
             return Ok(modules.Select(_mapper.MapToDto));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetModule/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var module = _ctx.Modules.FirstOrDefault(m => m.ModuleId == id);
@@ -33,7 +34,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDto(module));
         }
 
-        [HttpGet("Details")]
+        [HttpGet("GetAllModulesWithDetails")]
         public IActionResult GetAllWithDetails()
         {
             var modules = _ctx.Modules
@@ -45,7 +46,7 @@ namespace SchoolManager.Controllers
             return Ok(modules.Select(_mapper.MapToDetailsDto));
         }
 
-        [HttpGet("{id}/Details")]
+        [HttpGet("GetModule/{id}/Details")]
         public IActionResult GetWithDetails([FromRoute] int id)
         {
             var module = _ctx.Modules
@@ -58,7 +59,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDetailsDto(module));
         }
 
-        [HttpPost]
+        [HttpPost("CreateModule")]
         public IActionResult Create([FromBody] ModuleDto dto)
         {
             var module = new Module
@@ -80,7 +81,7 @@ namespace SchoolManager.Controllers
             return CreatedAtAction(nameof(Get), new { id = module.ModuleId }, _mapper.MapToDto(module));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateModule/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] ModuleDto dto)
         {
             var module = _ctx.Modules.FirstOrDefault(m => m.ModuleId == id);
@@ -100,7 +101,7 @@ namespace SchoolManager.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteModule/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
             var module = _ctx.Modules.FirstOrDefault(m => m.ModuleId == id);

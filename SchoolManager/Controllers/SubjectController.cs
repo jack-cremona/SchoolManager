@@ -5,7 +5,8 @@ using SchoolManager.DTO;
 
 namespace SchoolManager.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class SubjectController : ControllerBase
     {
@@ -18,14 +19,14 @@ namespace SchoolManager.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllSubjects")]
         public IActionResult GetAll()
         {
             var subjects = _ctx.Subjects.ToList();
             return Ok(subjects.Select(_mapper.MapToDto));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetSubject/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var subject = _ctx.Subjects.FirstOrDefault(s => s.SubjectId == id);
@@ -33,7 +34,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDto(subject));
         }
 
-        [HttpGet("Details")]
+        [HttpGet("GetAllSubjectsWithDetails")]
         public IActionResult GetAllWithDetails()
         {
             var subjects = _ctx.Subjects
@@ -44,7 +45,7 @@ namespace SchoolManager.Controllers
             return Ok(subjects.Select(_mapper.MapToDetailsDto));
         }
 
-        [HttpGet("{id}/Details")]
+        [HttpGet("GetSubject/{id}/Details")]
         public IActionResult GetWithDetails([FromRoute] int id)
         {
             var subject = _ctx.Subjects
@@ -56,7 +57,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDetailsDto(subject));
         }
 
-        [HttpPost]
+        [HttpPost("CreateSubject")]
         public IActionResult Create([FromBody] SubjectDto dto)
         {
             var subject = new Subject { Name = dto.Name };
@@ -72,7 +73,7 @@ namespace SchoolManager.Controllers
             return CreatedAtAction(nameof(Get), new { id = subject.SubjectId }, _mapper.MapToDto(subject));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateSubject/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] SubjectDto dto)
         {
             var subject = _ctx.Subjects.FirstOrDefault(s => s.SubjectId == id);
@@ -90,7 +91,7 @@ namespace SchoolManager.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteSubject/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
             var subject = _ctx.Subjects.FirstOrDefault(s => s.SubjectId == id);

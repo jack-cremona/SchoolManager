@@ -5,7 +5,8 @@ using SchoolManager.DTO;
 
 namespace SchoolManager.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CompetenceController : ControllerBase
     {
@@ -16,7 +17,7 @@ namespace SchoolManager.Controllers
             _ctx = ctx;
         }
 
-        [HttpPost("AddCompetenceToTeacher/{teacherId}-{subjectId}")]
+        [HttpPost("/AddSubjectToTeacher/{subjectId}/{teacherId}")]
         public IActionResult AddCompetenceToTeacher([FromRoute] int teacherId, [FromRoute] int subjectId)
         {
             var teacherExists = _ctx.Teachers.Any(t => t.TeacherId == teacherId);

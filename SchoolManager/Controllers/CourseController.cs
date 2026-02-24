@@ -5,7 +5,8 @@ using SchoolManager.DTO;
 
 namespace SchoolManager.Controllers
 {
-    [Route("api/[controller]")]
+    //[Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
     {
@@ -18,14 +19,14 @@ namespace SchoolManager.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllCourses")]
         public IActionResult GetAll()
         {
             var courses = _ctx.Courses.ToList();
             return Ok(courses.Select(_mapper.MapToDto));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetCourse/{id}")]
         public IActionResult Get([FromRoute] int id)
         {
             var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
@@ -33,7 +34,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDto(course));
         }
 
-        [HttpGet("Details")]
+        [HttpGet("GetAllCoursesWithDetails")]
         public IActionResult GetAllWithDetails()
         {
             var courses = _ctx.Courses
@@ -45,7 +46,7 @@ namespace SchoolManager.Controllers
         }
 
         //da eccezione
-        [HttpGet("{id}/Details")]
+        [HttpGet("GetCourse/{id}/Details")]
         public IActionResult GetWithDetails([FromRoute] int id)
         {
             var course = _ctx.Courses
@@ -57,7 +58,7 @@ namespace SchoolManager.Controllers
             return Ok(_mapper.MapToDetailsDto(course));
         }
 
-        [HttpPost]
+        [HttpPost("CreateCourse")]
         public IActionResult Create([FromBody] CourseDto dto)
         {
             var course = new Course { Title = dto.Title };
@@ -67,7 +68,7 @@ namespace SchoolManager.Controllers
             return CreatedAtAction(nameof(Get), new { id = course.CourseId }, _mapper.MapToDto(course));
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateCourse/{id}")]
         public IActionResult Update([FromRoute] int id, [FromBody] CourseDto dto)
         {
             var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
@@ -85,7 +86,7 @@ namespace SchoolManager.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteCourse/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
             var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
