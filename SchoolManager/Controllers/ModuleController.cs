@@ -105,7 +105,8 @@ namespace SchoolManager.Controllers
         public IActionResult Delete([FromRoute] int id)
         {
             var module = _ctx.Modules.FirstOrDefault(m => m.ModuleId == id);
-            if (module == null) return NotFound();
+            if (module == null)
+                return NotFound();
 
             _ctx.Modules.Remove(module);
             try

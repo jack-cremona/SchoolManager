@@ -19,6 +19,10 @@ namespace SchoolManager.Data
                 .Property(m => m.ModuleId)
                 .HasColumnName("Id");
 
+            modelBuilder.Entity<Assignment>()
+                .Property(a => a.AssignmentId)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Modules)
                 .WithOne(m => m.Course)
@@ -44,7 +48,10 @@ namespace SchoolManager.Data
             modelBuilder.Entity<Teacher>()
                 .HasMany(t => t.Modules)
                 .WithMany(m => m.Teachers)
-                .UsingEntity(e => e.ToTable("Assignments"));
+                .UsingEntity<Assignment>(
+                    j => j.HasOne(a => a.Module).WithMany().HasForeignKey(a => a.ModuleId),
+                    j => j.HasOne(a => a.Teacher).WithMany().HasForeignKey(a => a.TeacherId),
+                    j => j.HasKey(a => a.AssignmentId));
 
             modelBuilder.Entity<Teacher>()
                 .HasMany(t => t.Subjects)
@@ -53,6 +60,7 @@ namespace SchoolManager.Data
 
         }
 
+        public DbSet<Assignment> Assignments { get; set; }
         public DbSet<Competence> Competences { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Enrollment> Enrollments { get; set; }
