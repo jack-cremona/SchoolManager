@@ -26,7 +26,7 @@ namespace SchoolManager.Controllers
                 .Include(t => t.Subjects)
                 .FirstOrDefault(t => t.TeacherId == teacherId);
             
-            var module = _ctx.Modules.Include(m => m.Teachers).FirstOrDefault(m => m.ModuleId == moduleId);
+            var module = _ctx.Modules.FirstOrDefault(m => m.ModuleId == moduleId);
             
             if (teacher == null || module == null)
             {

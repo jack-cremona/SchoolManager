@@ -103,6 +103,11 @@ namespace SchoolManager.Controllers
         {
             var student = _ctx.Students.FirstOrDefault(s => s.StudentId == id);
             if (student == null) return NotFound();
+            List<Enrollment> enrollments = _ctx.Enrollments.Where(e => e.StudentId == id).ToList();
+            foreach (var enrollment in enrollments)
+            {
+                _ctx.Enrollments.Remove(enrollment);
+            }
 
             _ctx.Students.Remove(student);
             try

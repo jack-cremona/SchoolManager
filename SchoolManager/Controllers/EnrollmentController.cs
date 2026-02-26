@@ -36,6 +36,7 @@ namespace SchoolManager.Controllers
             };
 
             _ctx.Add(enrollment);
+
             try
             {
                 _ctx.SaveChanges();

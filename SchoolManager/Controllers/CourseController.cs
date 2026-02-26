@@ -90,17 +90,37 @@ namespace SchoolManager.Controllers
         public IActionResult Delete([FromRoute] int id)
         {
             var course = _ctx.Courses.FirstOrDefault(c => c.CourseId == id);
-            if (course == null) return NotFound();
-
-            _ctx.Courses.Remove(course);
+            if (course == null)
+                return NotFound();
             try
             {
+                List<Enrollment> enrollments = _ctx.Enrollments.Where(e => e.CourseId == id).ToList();
+                foreach (var enrollment in enrollments)
+                {
+                    _ctx.Enrollments.Remove(enrollment);
+                }
+
+                List<Module> modules = _ctx.Modules.Where(m => m.CourseId == id).ToList();
+                List<Assignment> assignments;
+                foreach (var module in modules)
+                {
+                    assignments = _ctx.Assignments.Where(a => a.ModuleId == module.ModuleId).ToList();
+                    foreach (var assignment in assignments)
+                    {
+                        _ctx.Assignments.Remove(assignment);
+                    }
+                    _ctx.Modules.Remove(module);
+                }
+
+                _ctx.Courses.Remove(course);
+
                 _ctx.SaveChanges();
             }
             catch (Exception ex)
             {
                 return StatusCode(400, ex.Message);
             }
+            
             return NoContent();
         }
     }
